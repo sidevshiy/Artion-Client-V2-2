@@ -61,7 +61,7 @@ export class FApolloClient {
     getHttpLink() {
         return new HttpLink({
             uri: () => this.getCurrentHttpProvider(),
-            fetch
+            fetch,
         });
     }
 

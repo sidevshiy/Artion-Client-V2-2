@@ -56,7 +56,8 @@ export default {
         async onWalletPick(wallet) {
             this._walletPicked = true;
 
-            if (wallet.id === 'metamask') { // && clientInfo.mobile
+            if (wallet.id === 'metamask') {
+                // && clientInfo.mobile
                 this.callResolve();
 
                 const url = new URL(window.location.href);

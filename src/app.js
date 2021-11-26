@@ -56,32 +56,31 @@ export const router = setupRouter({
 //     render: h => h(App),
 // }).$mount('#app');
 
-export default context => new Promise(resolve => {
-	//let store = createStore(api);
-	//let router = createRouter(store);
+export default context =>
+    new Promise(resolve => {
+        //let store = createStore(api);
+        //let router = createRouter(store);
 
+        let render = async () => {
+            // wait some crytical data
+            new Vue({
+                i18n,
+                router,
+                store,
+                apolloProvider,
+                render: h => h(App),
+                created() {
+                    resolve(this);
+                },
+            });
+        };
 
-	let render = async () => {
-        // wait some crytical data
-        new Vue({
-            i18n,
-            router,
-            store,
-            apolloProvider,
-            render: h => h(App),
-            created(){
-				resolve(this);
-			}
-        });
-	}	
-
-	if(process.isServer){
-		router.push(context.url, render);
-	}
-	else{
-		render();
-	}
-});
+        if (process.isServer) {
+            router.push(context.url, render);
+        } else {
+            render();
+        }
+    });
 
 // check if any form was changed before window unload
 /*

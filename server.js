@@ -1,4 +1,4 @@
-const Vue = require('vue');
+//const Vue = require('vue');
 const server = require('express')();
 const renderer = require('vue-server-renderer').createRenderer();
 const serverBundle = require('./dist/js/server-bundle.js');
@@ -13,12 +13,12 @@ const serverBundle = require('./dist/js/server-bundle.js');
 // });
 
 server.get('*', (req, res) => {
-	renderer.renderToString(serverBundle, (err, html) => {
-		if(err) {
-			console.log(err);
-		}
-		res.end(html);
-	});
+    renderer.renderToString(serverBundle, (err, html) => {
+        if (err) {
+            console.log(err);
+        }
+        res.end(html);
+    });
 });
 
 server.listen(3080);
