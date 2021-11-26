@@ -7,6 +7,8 @@ import { getBearerToken } from '@/modules/account/auth.js';
 import { onError } from 'apollo-link-error';
 import { RetryLink } from 'apollo-link-retry';
 
+import fetch from 'cross-fetch';
+
 export class FApolloClient {
     constructor({ apolloProviders = [], defaultProviderIndex = 'random', maxRetryLinkAttempts = Infinity }) {
         this.apolloProviders = apolloProviders;
@@ -59,6 +61,7 @@ export class FApolloClient {
     getHttpLink() {
         return new HttpLink({
             uri: () => this.getCurrentHttpProvider(),
+            fetch
         });
     }
 
