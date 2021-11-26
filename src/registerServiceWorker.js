@@ -3,7 +3,7 @@
 import { register } from 'register-service-worker';
 import appConfig from './app.config.js';
 
-if (process.env.NODE_ENV === 'production' && appConfig.usePWA) {
+if (process.env.NODE_ENV === 'production' && appConfig.usePWA && process.isClient) {
     register(`${process.env.BASE_URL}service-worker.js`, {
         ready() {
             console.log(

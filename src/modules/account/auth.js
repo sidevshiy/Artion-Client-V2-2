@@ -4,7 +4,7 @@ import { notifications } from 'fantom-vue-components/src/plugins/notifications.j
 import { login } from '@/modules/account/mutations/login.js';
 // import { getLoggedUser } from '@/modules/account/queries/logged-user.js';
 import { getUser } from '@/modules/account/queries/user.js';
-import { router } from '@/main.js';
+import { router } from '@/app.js';
 
 function isBearerTokenValid(token) {
     try {
