@@ -32,6 +32,7 @@
         "apollo-link-ws": "^1.0.20",
         "core-js": "^3.6.5",
         "dayjs": "^1.10.7",
+        "electron": "^16.0.2",
         "express": "^4.17.1",
         "fantom-vue-components": "^0.38.6",
         "graphql": "^15.5.3",
