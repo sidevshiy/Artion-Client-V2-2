@@ -24,9 +24,11 @@ export default {
     created() {
         this._languages = clone(appConfig.settings.languages);
 
-        this.setLanguage();
+        if (process.isClient) {
+            this.setLanguage();
 
-        this._eventBus.on('set-language', this.setLanguage);
+            this._eventBus.on('set-language', this.setLanguage);
+        }
     },
 
     methods: {

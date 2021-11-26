@@ -13,7 +13,7 @@ const APP_TITLE = appConfig.title;
  * @param {boolean} [addAppName]
  */
 function setTitle(title, addAppName = false) {
-    if (title !== undefined) {
+    if (title !== undefined && process.isClient) {
         const t = addAppName ? `${title} | ${APP_NAME}` : title;
 
         document.title = t;
@@ -26,7 +26,7 @@ function setTitle(title, addAppName = false) {
  * @param {string} description
  */
 function setDescription(description) {
-    if (description !== undefined) {
+    if (description !== undefined && process.isClient) {
         setAttr(document.querySelector('meta[property="og:description"]'), 'content', description);
         setAttr(document.querySelector('meta[property="twitter:description"]'), 'content', description);
     }

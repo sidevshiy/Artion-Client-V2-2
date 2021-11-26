@@ -4,7 +4,7 @@ let pageIsVisible = true;
 let pageVisibilitychangeSet = false;
 
 function setVisibilitychangeListener() {
-    if (!pageVisibilitychangeSet) {
+    if (!pageVisibilitychangeSet && process.isClient) {
         document.addEventListener('visibilitychange', () => {
             pageIsVisible = document.visibilityState === 'visible';
         });

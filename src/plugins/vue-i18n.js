@@ -8,7 +8,7 @@ Vue.use(VueI18n);
 
 const includedLanguage = require(`../locales/${defaultLocale}.json`);
 
-document.documentElement.setAttribute('lang', defaultLocale);
+if (process.isClient) document.documentElement.setAttribute('lang', defaultLocale);
 
 const defaultDatetimeFormat = {
     short: {
@@ -58,6 +58,6 @@ export function loadLanguage(language) {
     return messages[language]().then(i18nMessages => {
         i18n.setLocaleMessage(language, i18nMessages);
         i18n.locale = language;
-        document.documentElement.setAttribute('lang', language);
+        if (process.isClient) document.documentElement.setAttribute('lang', language);
     });
 }

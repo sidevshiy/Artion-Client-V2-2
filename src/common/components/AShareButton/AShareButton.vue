@@ -93,16 +93,18 @@ export default {
             });
         },
         onListboxItemSelected(item) {
-            const currentLink = window.location.href;
-            if (item.link === false) {
-                this.copyToClickBoard(currentLink);
-                this.$notifications.add({
-                    type: 'success',
-                    text: this.$t('ashareButton.successCopied'),
-                });
-            } else {
-                const newLink = item.link + currentLink;
-                window.open(newLink);
+            if (process.isClient) {
+                const currentLink = window.location.href;
+                if (item.link === false) {
+                    this.copyToClickBoard(currentLink);
+                    this.$notifications.add({
+                        type: 'success',
+                        text: this.$t('ashareButton.successCopied'),
+                    });
+                } else {
+                    const newLink = item.link + currentLink;
+                    window.open(newLink);
+                }
             }
             this.$refs.popover.hide();
         },
