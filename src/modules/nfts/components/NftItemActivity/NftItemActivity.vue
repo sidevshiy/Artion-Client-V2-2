@@ -1,5 +1,7 @@
 <template>
-    <div class="nfthistorygrid">
+    <div class="nftitemactivity">
+        <NftItemActivityFilter v-model="filters" />
+        <NftItemActivityFilterChips v-model="filters" />
         <f-data-grid
             no-header
             max-height="400px"
@@ -44,17 +46,29 @@ import AAddress from '@/common/components/AAddress/AAddress.vue';
 import { getTokenActivity } from '@/modules/nfts/queries/token-activity.js';
 import { datetimeFormatter } from '@/utils/formatters.js';
 
-const filter = ['LISTING_SOLD', 'OFFER_SOLD', 'AUCTION_RESOLVED'];
+import NftItemActivityFilter from '@/modules/nfts/components/NftItemActivityFilter/NftItemActivityFilter.vue';
+import NftItemActivityFilterChips from '@/modules/nfts/components/NftItemActivityFilterChips/NftItemActivityFilterChips.vue';
 
 export default {
-    name: 'NftHistoryGrid',
+    name: 'NftItemActivity',
 
-    components: { FDataGrid, AAddress, ATokenValue },
+    components: { FDataGrid, AAddress, ATokenValue, NftItemActivityFilter, NftItemActivityFilterChips },
 
     data() {
         return {
+            filters: {},
             itemsColumns: [
                 {
+<<<<<<< HEAD:src/modules/nfts/components/NftHistoryGrid/NftHistoryGrid.vue
+=======
+                    name: 'type',
+                    label: this.$t('nfthistorygrid.event'),
+                    formatter(value) {
+                        return _this.$t('nfthistorygrid.types.' + value);
+                    },
+                },
+                {
+>>>>>>> 6b4b278... Activity Item table:src/modules/nfts/components/NftItemActivity/NftItemActivity.vue
                     name: 'unitPrice',
                     label: this.$t('nfthistorygrid.price'),
                 },
@@ -78,6 +92,7 @@ export default {
         };
     },
 
+<<<<<<< HEAD:src/modules/nfts/components/NftHistoryGrid/NftHistoryGrid.vue
     created() {
         this.init();
     },
@@ -91,6 +106,39 @@ export default {
                 this.filterToQuery(filter)
             );
             this.items = this.transformData(values);
+=======
+    computed: {
+        dFilters() {
+            return Object.values(this.filters)
+                .flat()
+                .map(item => item.filter);
+        },
+    },
+
+    watch: {
+        token: {
+            async handler(value, oldValue) {
+                if (value.contract && !objectEquals(value, oldValue)) {
+                    if (this.items.length > 0) {
+                        this.update();
+                    } else {
+                        await this.loadActivities();
+                    }
+                }
+            },
+            immediate: true,
+        },
+        dFilters() {
+            this.update();
+        },
+    },
+
+    methods: {
+        async loadPage(pagination = { first: this.perPage }) {
+            const { token } = this;
+
+            return await getTokenActivity(token.contract, token.tokenId, pagination, this.filterToQuery(this.dFilters));
+>>>>>>> 6b4b278... Activity Item table:src/modules/nfts/components/NftItemActivity/NftItemActivity.vue
         },
 
         transformData(values) {
